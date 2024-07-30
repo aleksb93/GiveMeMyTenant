@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    /* Basic styling for layout */
+    body {
+      font-family: Arial, sans-serif;
+      width: 250px;
+      padding: 10px;
+    }
+    #tid-list {
+      list-style-type: none;
+      padding: 0;
+    }
+    #tid-list li {
+      margin: 5px 0;
+      cursor: pointer;
+    }
+    #tid-input, #name-input {
+      width: calc(100% - 30px);
+      margin-bottom: 5px;
+    }
+    .selected {
+      background-color: #eef;
+    }
+    .button {
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h3>Give Me My Tenant!</h3>
+  <input type="text" id="name-input" placeholder="Enter name">
+  <input type="text" id="tid-input" placeholder="Enter TID">
+  <button id="add-tid">Add TID</button>
+  <ul id="tid-list"></ul>
+  <button class="button" id="use-tid">Use Selected TID</button>
+  <script src="popup.js"></script>
+</body>
+</html>
