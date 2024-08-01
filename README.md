@@ -3,7 +3,8 @@
 
  ## Is this you?
  You are working in one of your customers tenants, and when you are done you switch over to the next customer with the "switch tenant button":
- ![Microsoft Switch button](./images/microsoft_switch_button.png)
+ <img src="./images/microsoft_switch_button.png" alt="Microsoft Switch button", width="200" />
+ 
  You continue working, but now when you want to change tenant, the button has disappeared!
  ![Where is button?](./images/where_button.png)
  ![I donno whats going on](./images/i_dunno.jpg)
