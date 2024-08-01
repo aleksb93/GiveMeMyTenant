@@ -67,14 +67,16 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Function to add a TID to the UI
-function addTidToUI(tidObject) {
+function addTidToUI(tenant) {
+  const tenantList = document.getElementById("tid-list");
+  //tenantList.innerHTML = "";
   let li = document.createElement('li');
-  li.textContent = `${tidObject.name} (${tidObject.tid})`;
+  li.className = "tenant-item";
+  li.textContent = `${tenant.name} (${tenant.tid})`;
+
   li.addEventListener('click', () => {
-    Array.from(tidListElement.children).forEach(child => child.classList.remove('selected'));
-    li.classList.add('selected');
-    selectedTid = tidObject.tid;
-  });
+    useTenant(tenant.tid);
+    });
 
   // Add delete button
   let deleteButton = document.createElement('button');
@@ -84,13 +86,26 @@ function addTidToUI(tidObject) {
   deleteButton.style.color = "white";
   deleteButton.addEventListener('click', (event) => {
     event.stopPropagation();
-    deleteTid(tidObject.tid);
-    tidListElement.removeChild(li);
+    deleteTid(tenant.tid);
+    tenantList.removeChild(li);
   });
-
   li.appendChild(deleteButton);
-  tidListElement.appendChild(li);
-}
+  tenantList.append(li);
+  // Use the selected tenant entry
+  function useTenant(selectedTid) {
+    chrome.storage.local.set({selectedTid: selectedTid}, () => {
+      chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+        let currentURL = tabs[0].url;
+        let newURL = removeQueryParam(currentURL, "modified");
+        let newURLobj = new URL(newURL);
+        // Replacing the TID
+        newURLobj.searchParams.set("tid", selectedTid);
+        // Update browser URL
+        chrome.tabs.update(tabs[0].id, { url: newURLobj.href});
+      });
+    });
+  };
+};
 
 // Function to delete a TID
 function deleteTid(tidToDelete) {
@@ -100,3 +115,31 @@ function deleteTid(tidToDelete) {
     chrome.storage.local.set({tids: tids});
   });
 }
+
+// Show the JSON input field
+document.getElementById("show-json-input").addEventListener("click", () => {
+  document.getElementById("json-input-container").style.display = "block";
+});
+
+// Load tenants from JSON
+document.getElementById("load-json").addEventListener("click", () => {
+  const jsonInput = document.getElementById("json-input").value.trim();
+  try {
+    const tenants = JSON.parse(jsonInput);
+  } catch (error) {
+    console.error("Invalid JSON:", error);
+    alert("Invalid JSON format. Please check your input.");
+    return;
+  }
+  // Tested that parse is OK, but need access to tenants variable
+  const tenants = JSON.parse(jsonInput);
+  chrome.storage.local.get("tids", (data) => {
+    let tids = data.tids || [];
+    tenants.forEach(tenant => {
+      tids.push({name: tenant.name, tid: tenant.tid});
+  })
+  chrome.storage.local.set({tids: tids});
+  location.reload();
+});
+  
+});

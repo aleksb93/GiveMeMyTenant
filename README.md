@@ -4,8 +4,13 @@
 ## Installation
  Download extention from [Releases](https://github.com/aleksb93/GiveMeMyTenant/releases). 
 
- For FireFox: "GiveMeMyTenant.xpi"
- For Chrome (and Chrome variants): "GiveMeMyTenant.crx"
+ For FireFox: Donwload "GiveMeMyTenant.xpi" and allow it to install. \
+ For Chrome (and Chrome variants):
+ 1. Download GiveMeMyTenant.xpi
+ 2. Unzip the content to a folder (it's a compressed folder)
+ 3. Open Chrome, and go to chrome://extensions/
+ 4. In top right, enable developer mode
+ 5. Select "Load unpacked" and choose the folder of the unpacked extension
 
  ## Is this you?
  You are working in one of your customers tenants, and when you are done you switch over to the next customer with the "switch tenant button": \
