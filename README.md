@@ -1,5 +1,5 @@
 # GiveMeMyTenant
- This is a browser extension that helps with switching tenants in *.microsoft.com portals. This does not work with Azure, as it handles tenant information differently. \
+ This is a browser extension that helps with switching tenants in *.microsoft.com portals. This does not work with Azure, as it handles tenant information differently.
 
  Download extention from [Releases](https://github.com/aleksb93/GiveMeMyTenant/releases). 
 
@@ -17,7 +17,7 @@ Leaving you like: \
 
  ## The Extension
  <img src="./images/GiveMeMyTenant.png" alt="GiveMeMyTenant img" />
-\
- This is a small extension, with the only purpose of changing the current tenant ID (TID). \
- All data is stored locally in the browser, and will persist between reboots. Deleting all browser data might delete saved TIDs. \
- It works on any *.microsoft.com that uses TIDs in URL, and can even switch tenants while you are in submenus in the portal. \
+
+ This is a small extension, with the only purpose of changing the current tenant ID (TID).
+ All data is stored locally in the browser, and will persist between reboots. Deleting all browser data might delete saved TIDs.
+ It works on any *.microsoft.com that uses TIDs in URL, and can even switch tenants while you are in submenus in the portal.
