@@ -11,7 +11,7 @@ function removeQueryParam(url, param) {
 }
 
 // Load TIDs from storage and display them
-browser.storage.local.get('tids', (data) => {
+chrome.storage.local.get('tids', (data) => {
   let tids = data.tids || [];
   tids.forEach(tid => {
     addTidToUI(tid);
@@ -23,10 +23,10 @@ document.getElementById('add-tid').addEventListener('click', () => {
   let newTid = tidInputElement.value.trim();
   let newName = nameInputElement.value.trim();
   if (newTid && newName) {
-    browser.storage.local.get('tids', (data) => {
+    chrome.storage.local.get('tids', (data) => {
       let tids = data.tids || [];
       tids.push({name: newName, tid: newTid});
-      browser.storage.local.set({tids: tids}, () => {
+      chrome.storage.local.set({tids: tids}, () => {
         addTidToUI({name: newName, tid: newTid});
         tidInputElement.value = '';
         nameInputElement.value = '';
@@ -38,16 +38,15 @@ document.getElementById('add-tid').addEventListener('click', () => {
 // Use selected TID
 document.getElementById('use-tid').addEventListener('click', () => {
   if (selectedTid) {
-    browser.storage.local.set({selectedTid: selectedTid}, () => {
-      browser.tabs.query({active: true, currentWindow: true}, (tabs) => {
+    chrome.storage.local.set({selectedTid: selectedTid}, () => {
+      chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
         let currentURL = tabs[0].url;
         let newURL = removeQueryParam(currentURL, "modified");
         let newURLobj = new URL(newURL);
         // Replacing the TID
         newURLobj.searchParams.set("tid", selectedTid);
         // Update browser URL
-        browser.tabs.update(tabs[0].id, { url: newURLobj.href});
-        browser.tabs.reload(tabs[0].id);
+        chrome.tabs.update(tabs[0].id, { url: newURLobj.href});
       });
     });
   }
@@ -56,7 +55,7 @@ document.getElementById('use-tid').addEventListener('click', () => {
 // Show current tenant
 document.addEventListener('DOMContentLoaded', () => {
   // Retrieve the selected TID from storage
-  browser.storage.local.get(['selectedTid', 'tids'], (data) => {
+  chrome.storage.local.get(['selectedTid', 'tids'], (data) => {
     const selectedTid = data.selectedTid;
     const tenants = data.tids || {};
 
@@ -79,8 +78,10 @@ function addTidToUI(tidObject) {
 
   // Add delete button
   let deleteButton = document.createElement('button');
-  deleteButton.textContent = 'Delete';
+  deleteButton.textContent = 'Del';
   deleteButton.style.marginLeft = '10px';
+  deleteButton.style.background = "red";
+  deleteButton.style.color = "white";
   deleteButton.addEventListener('click', (event) => {
     event.stopPropagation();
     deleteTid(tidObject.tid);
@@ -93,9 +94,9 @@ function addTidToUI(tidObject) {
 
 // Function to delete a TID
 function deleteTid(tidToDelete) {
-  browser.storage.local.get('tids', (data) => {
+  chrome.storage.local.get('tids', (data) => {
     let tids = data.tids || [];
     tids = tids.filter(tid => tid.tid !== tidToDelete);
-    browser.storage.local.set({tids: tids});
+    chrome.storage.local.set({tids: tids});
   });
 }

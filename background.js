@@ -1,11 +1,11 @@
 // Listen for navigation events
-browser.webNavigation.onBeforeNavigate.addListener((details) => {
+chrome.webNavigation.onBeforeNavigate.addListener((details) => {
   // Check if the URL has already been modified
   if (details.url.includes('modified=true')) {
     return; // Skip processing if URL has been modified
   }
 
-  browser.storage.local.get('selectedTid', (data) => {
+  chrome.storage.local.get('selectedTid', (data) => {
     if (data.selectedTid) {
       let url = new URL(details.url);
       let host = url.hostname;
@@ -30,7 +30,7 @@ browser.webNavigation.onBeforeNavigate.addListener((details) => {
         url.searchParams.set('modified', 'true');
 
         // Update the tab's URL
-        browser.tabs.update(details.tabId, { url: url.href });
+        chrome.tabs.update(details.tabId, { url: url.href });
       }
     }
   });
