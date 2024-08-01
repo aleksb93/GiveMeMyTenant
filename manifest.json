@@ -13,7 +13,7 @@
     "browser_action": {
       "default_popup": "popup.html",
       "default_icon": {
-        "48": "icons/gmmt_icon-48.png"
+        "85": "icons/gmmt_icon-85.png"
       }
     },
     "background": {

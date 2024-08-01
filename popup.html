@@ -5,8 +5,13 @@
     /* Basic styling for layout */
     body {
       font-family: Arial, sans-serif;
+      color: white;
       width: 250px;
       padding: 10px;
+      background-color: #003232;
+    }
+    h1, h2, h3 {
+      color: #00DC69;
     }
     #tid-list {
       list-style-type: none;
@@ -21,7 +26,7 @@
       margin-bottom: 5px;
     }
     .selected {
-      background-color: #eef;
+      background-color: #497b5144;
     }
     .button {
       margin-top: 5px;
@@ -34,6 +39,7 @@
     <label>Selected Tenant Name:</label>
     <div id="selected-tenant-display">Loading...</div>
   </div>
+  </br>
   <input type="text" id="name-input" placeholder="Enter name">
   <input type="text" id="tid-input" placeholder="Enter TID">
   <button id="add-tid">Add TID</button>
