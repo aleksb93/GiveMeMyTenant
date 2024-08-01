@@ -1,7 +1,11 @@
 # GiveMeMyTenant
  This is a browser extension that helps with switching tenants in *.microsoft.com portals. This does not work with Azure, as it handles tenant information differently.
 
+## Installation
  Download extention from [Releases](https://github.com/aleksb93/GiveMeMyTenant/releases). 
+
+ For FireFox: "GiveMeMyTenant.xpi"
+ For Chrome (and Chrome variants): "GiveMeMyTenant.crx"
 
  ## Is this you?
  You are working in one of your customers tenants, and when you are done you switch over to the next customer with the "switch tenant button": \
