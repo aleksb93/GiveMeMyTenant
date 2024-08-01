@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Give Me My Tenant",
-  "version": "1.1",
+  "version": "1.2",
   "description": "A Web browser extension to switch TID parameter in URLs for Microsoft web portals.",
   "permissions": [
     "tabs",
