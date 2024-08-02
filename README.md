@@ -20,7 +20,7 @@
  <img src="./images/where_button.png" alt="Where button" width="400" />
 \
 Leaving you like: \
-<img src="./images/i_dunno.jpg" alt="I dunno" width="300" />
+<img src="./images/confused.gif" alt="Where is it??" width="300" />
 \
  So until the small, indie company, Microsoft has the capacity to fix this bug you can use the "GiveMeMyTenant"-extention!
 
