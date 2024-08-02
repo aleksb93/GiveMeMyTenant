@@ -2,9 +2,9 @@
  This is a browser extension that helps with switching tenants in *.microsoft.com portals. This does not work with Azure, as it handles tenant information differently.
 
 ## Installation
- Download extention from [Releases](https://github.com/aleksb93/GiveMeMyTenant/releases). 
+ Download extension from [Releases](https://github.com/aleksb93/GiveMeMyTenant/releases). 
 
- For FireFox: Donwload "GiveMeMyTenant.xpi" and allow it to install. \
+ For FireFox: Download "GiveMeMyTenant.xpi" and allow it to install. \
  For Chrome (and Chrome variants):
  1. Download GiveMeMyTenant.xpi
  2. Unzip the content to a folder (it's a compressed folder)
@@ -25,7 +25,7 @@ Leaving you like: \
 <img src="./images/confused.gif" alt="Where is it??" width="300" />
 \
 \
- So until the small, indie company, Microsoft has the capacity to fix this bug you can use the "GiveMeMyTenant"-extention!
+ So until the small, indie company, Microsoft has the capacity to fix this bug you can use the "GiveMeMyTenant"-extension!
 
  ## The Extension
  <img src="./images/GiveMeMyTenant.png" alt="GiveMeMyTenant img" />
