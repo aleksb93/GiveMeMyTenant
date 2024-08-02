@@ -16,11 +16,14 @@
  You are working in one of your customers tenants, and when you are done you switch over to the next customer with the "switch tenant button": \
  <img src="./images/microsoft_switch_button.png" alt="Microsoft Switch button" width="400" />
 \
+\
  You continue working, but now when you want to change tenant, the button has disappeared! \
  <img src="./images/where_button.png" alt="Where button" width="400" />
 \
+\
 Leaving you like: \
 <img src="./images/confused.gif" alt="Where is it??" width="300" />
+\
 \
  So until the small, indie company, Microsoft has the capacity to fix this bug you can use the "GiveMeMyTenant"-extention!
 
