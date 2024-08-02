@@ -35,41 +35,9 @@ document.getElementById('add-tid').addEventListener('click', () => {
   }
 });
 
-// Use selected TID
-document.getElementById('use-tid').addEventListener('click', () => {
-  if (selectedTid) {
-    chrome.storage.local.set({selectedTid: selectedTid}, () => {
-      chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-        let currentURL = tabs[0].url;
-        let newURL = removeQueryParam(currentURL, "modified");
-        let newURLobj = new URL(newURL);
-        // Replacing the TID
-        newURLobj.searchParams.set("tid", selectedTid);
-        // Update browser URL
-        chrome.tabs.update(tabs[0].id, { url: newURLobj.href});
-      });
-    });
-  }
-});
-
-// Show current tenant
-document.addEventListener('DOMContentLoaded', () => {
-  // Retrieve the selected TID from storage
-  chrome.storage.local.get(['selectedTid', 'tids'], (data) => {
-    const selectedTid = data.selectedTid;
-    const tenants = data.tids || {};
-
-    // Find the corresponding tenant name
-    const currTenant = tenants.find(tenant => tenant.tid === selectedTid) || 'No tenant selected catch';
-    // Display the tenant name in the popup
-    document.getElementById('selected-tenant-display').textContent = currTenant.name;
-  });
-});
-
 // Function to add a TID to the UI
 function addTidToUI(tenant) {
   const tenantList = document.getElementById("tid-list");
-  //tenantList.innerHTML = "";
   let li = document.createElement('li');
   li.className = "tenant-item";
   li.textContent = tenant.name;
@@ -81,15 +49,6 @@ function addTidToUI(tenant) {
   li.addEventListener('click', () => {
     useTenant(tenant.tid);
   });
-//  let hoverTimeout;
-//  li.addEventListener("mouseenter", () => {
-//    hoverTimeout = setTimeout(() => {
-//      tidSpan.style.display = "block";
-//    }, 1000);
-//  });
-//  li.addEventListener("mouseleave", () => {
-//    tidSpan.style.display = "none";
-//  });
 
   // Add delete button
   let deleteButton = document.createElement('button');
@@ -104,22 +63,21 @@ function addTidToUI(tenant) {
   li.appendChild(tidSpan);
   li.appendChild(deleteButton);
   tenantList.appendChild(li);
-  
-
 };
 
 // Use the selected tenant entry
 function useTenant(selectedTid) {
-  chrome.storage.local.set({selectedTid: selectedTid}, () => {
-    chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-      let currentURL = tabs[0].url;
-      let newURL = removeQueryParam(currentURL, "modified");
-      let newURLobj = new URL(newURL);
-      // Replacing the TID
-      newURLobj.searchParams.set("tid", selectedTid);
-      // Update browser URL
-      chrome.tabs.update(tabs[0].id, { url: newURLobj.href});
-    });
+  chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+    let newURLobj = new URL(tabs[0].url);
+    // Stoping not-microsoft sites from updating (must also have tid) / do nothing
+    if (!newURLobj.hostname.endsWith("microsoft.com") || !newURLobj.searchParams.has("tid")) {
+      return; 
+    }
+
+    // Replacing the TID
+    newURLobj.searchParams.set("tid", selectedTid);
+    // Update browser URL
+    chrome.tabs.update(tabs[0].id, { url: newURLobj.href});
   });
 };
 

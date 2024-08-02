@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Give Me My Tenant",
-  "version": "1.4",
+  "version": "1.5",
   "description": "A Web browser extension to switch TID parameter in URLs for Microsoft web portals.",
   "permissions": [
     "tabs",
@@ -17,10 +17,6 @@
     "default_icon": {
       "85": "icons/gmmt_icon-85.png"
     }
-  },
-  "background": {
-    "service_worker": "background.js",
-    "scripts": ["background.js"]
   },
   "browser_specific_settings": {
     "gecko": {
