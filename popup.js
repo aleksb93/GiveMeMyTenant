@@ -72,39 +72,55 @@ function addTidToUI(tenant) {
   //tenantList.innerHTML = "";
   let li = document.createElement('li');
   li.className = "tenant-item";
-  li.textContent = `${tenant.name} (${tenant.tid})`;
+  li.textContent = tenant.name;
+
+  let tidSpan = document.createElement("span");
+  tidSpan.className = "tenant-id";
+  tidSpan.textContent = tenant.tid;
 
   li.addEventListener('click', () => {
     useTenant(tenant.tid);
-    });
+  });
+//  let hoverTimeout;
+//  li.addEventListener("mouseenter", () => {
+//    hoverTimeout = setTimeout(() => {
+//      tidSpan.style.display = "block";
+//    }, 1000);
+//  });
+//  li.addEventListener("mouseleave", () => {
+//    tidSpan.style.display = "none";
+//  });
 
   // Add delete button
   let deleteButton = document.createElement('button');
+  deleteButton.className = "tenant-delete-button";
   deleteButton.textContent = 'Del';
-  deleteButton.style.marginLeft = '10px';
-  deleteButton.style.background = "red";
-  deleteButton.style.color = "white";
   deleteButton.addEventListener('click', (event) => {
     event.stopPropagation();
     deleteTid(tenant.tid);
     tenantList.removeChild(li);
   });
+
+  li.appendChild(tidSpan);
   li.appendChild(deleteButton);
-  tenantList.append(li);
-  // Use the selected tenant entry
-  function useTenant(selectedTid) {
-    chrome.storage.local.set({selectedTid: selectedTid}, () => {
-      chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-        let currentURL = tabs[0].url;
-        let newURL = removeQueryParam(currentURL, "modified");
-        let newURLobj = new URL(newURL);
-        // Replacing the TID
-        newURLobj.searchParams.set("tid", selectedTid);
-        // Update browser URL
-        chrome.tabs.update(tabs[0].id, { url: newURLobj.href});
-      });
+  tenantList.appendChild(li);
+  
+
+};
+
+// Use the selected tenant entry
+function useTenant(selectedTid) {
+  chrome.storage.local.set({selectedTid: selectedTid}, () => {
+    chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+      let currentURL = tabs[0].url;
+      let newURL = removeQueryParam(currentURL, "modified");
+      let newURLobj = new URL(newURL);
+      // Replacing the TID
+      newURLobj.searchParams.set("tid", selectedTid);
+      // Update browser URL
+      chrome.tabs.update(tabs[0].id, { url: newURLobj.href});
     });
-  };
+  });
 };
 
 // Function to delete a TID
@@ -119,6 +135,11 @@ function deleteTid(tidToDelete) {
 // Show the JSON input field
 document.getElementById("show-json-input").addEventListener("click", () => {
   document.getElementById("json-input-container").style.display = "block";
+});
+
+// Show the manual input field
+document.getElementById("show-manual-input").addEventListener("click", () => {
+  document.getElementById("manual-input-container").style.display = "block";
 });
 
 // Load tenants from JSON
@@ -140,6 +161,5 @@ document.getElementById("load-json").addEventListener("click", () => {
   })
   chrome.storage.local.set({tids: tids});
   location.reload();
-});
-  
+  });
 });
